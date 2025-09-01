@@ -1,12 +1,10 @@
 pipeline {
-agent any
-
-    stages {
-        stage('Verify Maven') {
-            steps {
-                echo 'Checking Maven installation...'
-                sh 'which mvn && mvn -v'
-            }
+  agent {
+    docker {
+      image 'ravinder219/my-first-docker-image:latest'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+    }
+  }
   stages {
     stage('Checkout') {
       steps {
