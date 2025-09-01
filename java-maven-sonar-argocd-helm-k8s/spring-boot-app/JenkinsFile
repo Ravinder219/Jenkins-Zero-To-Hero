@@ -1,22 +1,22 @@
 pipeline {
- agent {
-  docker {
-    image 'maven:3.8.7-openjdk-17'
-    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+  agent {
+    docker {
+      image 'ravinder219/my-first-docker-image:latest'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+    }
   }
-}
 
   stages {
-    stage('Checkout') {
+    stage('Verify Environment') {
       steps {
-        sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/Ravinder219/Jenkins-Zero-To-Hero.git'
+        sh 'java -version'
+        sh 'mvn -v'
+        sh 'docker -v'
       }
     }
+
     stage('Build and Test') {
       steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
         sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
       }
     }
