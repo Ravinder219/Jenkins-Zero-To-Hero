@@ -1,5 +1,20 @@
-stage('Find pom.xml') {
-    steps {
-        sh 'find . -name pom.xml'
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Ravinder219/Jenkins-Zero-To-Hero.git'
+            }
+        }
+
+        stage('Find pom.xml') {
+            steps {
+                sh 'pwd'
+                sh 'ls -l'
+                sh 'find . -name pom.xml'
+            }
+        }
     }
 }
